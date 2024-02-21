@@ -2,8 +2,9 @@ import sys
 import numpy as np
 from nltk import sent_tokenize
 from metric.scorer import UniEvaluator
-sys.path.append("..")
 from utils.utils import add_question, print_scores
+#sys.path.append("..")
+
 
 class SumEvaluator:
     def __init__(self, max_length=1024, device='cuda:0', cache_dir=None):
