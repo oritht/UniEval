@@ -1,4 +1,4 @@
-from utils import convert_to_json
+from utils.utils import convert_to_json
 from metric.evaluator import get_evaluator
 
 # Example for data-to-text

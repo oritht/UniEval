@@ -44,8 +44,9 @@ We release four pre-trained evaluators for different NLG tasks as follows:
 
 ### Get Scores for Summarization
 Example usage for summarization is shown below.
+
 ```python
-from utils import convert_to_json
+from utils.utils import convert_to_json
 from metric.evaluator import get_evaluator
 
 task = 'summarization'
@@ -59,7 +60,7 @@ ref_list = ['Elizabeth was hospitalized after attending a party with Peter.']
 output_list = ['Peter and Elizabeth attend party city. Elizabeth rushed hospital.']
 
 # Prepare data for pre-trained evaluators
-data = convert_to_json(output_list=output_list, 
+data = convert_to_json(output_list=output_list,
                        src_list=src_list, ref_list=ref_list)
 # Initialize evaluator for a specific task
 evaluator = get_evaluator(task)
@@ -96,21 +97,24 @@ eval_scores = evaluator.evaluate(data, dims=['coherence', 'consistency', 'fluenc
 
 ### Get Scores for Dialogue
 Example usage for dialogue response generation is shown below.
+
 ```python
-from utils import convert_to_json
+from utils.utils import convert_to_json
 from metric.evaluator import get_evaluator
 
 task = 'dialogue'
 
 # a list of dialogue histories
-src_list = ['hi , do you know much about the internet ? \n i know a lot about different sites and some website design , how about you ? \n\n']
+src_list = [
+    'hi , do you know much about the internet ? \n i know a lot about different sites and some website design , how about you ? \n\n']
 # a list of additional context that should be included into the generated response
 context_list = ['the 3 horizontal line menu on apps and websites is called a hamburger button .\n']
 # a list of model outputs to be evaluated
-output_list = ['i do too . did you know the 3 horizontal line menu on apps and websites is called the hamburger button ?']
+output_list = [
+    'i do too . did you know the 3 horizontal line menu on apps and websites is called the hamburger button ?']
 
 # Prepare data for pre-trained evaluators
-data = convert_to_json(output_list=output_list, 
+data = convert_to_json(output_list=output_list,
                        src_list=src_list, context_list=context_list)
 # Initialize evaluator for a specific task
 evaluator = get_evaluator(task)
@@ -144,8 +148,9 @@ Please keep the format of the input dialogue consistent with [topical_chat.json]
 
 ### Get Factual Consistency Score
 **UniEval** can also act as a high-performance single-dimensional evaluator, such as achieving the best correlation when evaluating factual consistency (see Tables 3 and 9 in the paper). Example usage for factual consistency detection is shown below.
+
 ```python
-from utils import convert_to_json
+from utils.utils import convert_to_json
 from metric.evaluator import get_evaluator
 
 task = 'fact'
@@ -179,7 +184,7 @@ The results only include one dimension:
 
 (a) If the new dimension is close to one of UniEval's existing dimensions, you can directly evaluate it with the corresponding evaluator and specify the desired dimension.
 
-(b) If the new dimension requires a different input or question description, please modify the `add_question` function in [utils.py](./utils.py) and select an evaluator of a similar task for evaluation.
+(b) If the new dimension requires a different input or question description, please modify the `add_question` function in [utils.py](utils/utils.py) and select an evaluator of a similar task for evaluation.
 
 2. Transfer to other generation tasks
 
@@ -187,7 +192,7 @@ We take the data-to-text task as an example to show how to transfer UniEval to a
 
 (1) Create a task-specific evaluator in [metric/evaluator.py](./metric/evaluator.py), initializing it by specifying the pre-trained evaluator used and the dimensions to be evaluated. All required content should be inputted in the `self.evaluate()` function. Details can refer to `D2tEvaluator` in [metric/evaluator.py](./metric/evaluator.py).
 
-(2) Specify the required content and a specific question description for each dimension in `add_question`. They form the input to the evaluator. The input format for evaluating *naturalness* and *informativeness* in the data-to-text task can be found in [utils.py](./utils.py).
+(2) Specify the required content and a specific question description for each dimension in `add_question`. They form the input to the evaluator. The input format for evaluating *naturalness* and *informativeness* in the data-to-text task can be found in [utils.py](utils/utils.py).
 
 (3) As in [examples.py](./examples.py), multi-dimensional evaluation scores can be obtained.
 
