@@ -1,9 +1,9 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='UniEval',
     version='',
-    packages=[''],
+    packages=find_packages(),
     url='',
     license='',
     author='Ming Zhong',
