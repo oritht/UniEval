@@ -3,7 +3,7 @@ import sys
 import argparse
 from data_utils import load_json, write_predict
 sys.path.append("..")
-from metric.evaluator import get_evaluator
+from uni_eval.metric.evaluator import get_evaluator
 
 def predict(args, save_result=True):
     # load standard meta-evaluation benchmark

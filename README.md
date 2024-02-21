@@ -46,8 +46,8 @@ We release four pre-trained evaluators for different NLG tasks as follows:
 Example usage for summarization is shown below.
 
 ```python
-from utils.utils import convert_to_json
-from metric.evaluator import get_evaluator
+from uni_eval.utils import convert_to_json
+from uni_eval.metric.evaluator import get_evaluator
 
 task = 'summarization'
 
@@ -99,8 +99,8 @@ eval_scores = evaluator.evaluate(data, dims=['coherence', 'consistency', 'fluenc
 Example usage for dialogue response generation is shown below.
 
 ```python
-from utils.utils import convert_to_json
-from metric.evaluator import get_evaluator
+from uni_eval.utils import convert_to_json
+from uni_eval.metric.evaluator import get_evaluator
 
 task = 'dialogue'
 
@@ -150,8 +150,8 @@ Please keep the format of the input dialogue consistent with [topical_chat.json]
 **UniEval** can also act as a high-performance single-dimensional evaluator, such as achieving the best correlation when evaluating factual consistency (see Tables 3 and 9 in the paper). Example usage for factual consistency detection is shown below.
 
 ```python
-from utils.utils import convert_to_json
-from metric.evaluator import get_evaluator
+from uni_eval.utils import convert_to_json
+from uni_eval.metric.evaluator import get_evaluator
 
 task = 'fact'
 
@@ -184,15 +184,15 @@ The results only include one dimension:
 
 (a) If the new dimension is close to one of UniEval's existing dimensions, you can directly evaluate it with the corresponding evaluator and specify the desired dimension.
 
-(b) If the new dimension requires a different input or question description, please modify the `add_question` function in [utils.py](utils/utils.py) and select an evaluator of a similar task for evaluation.
+(b) If the new dimension requires a different input or question description, please modify the `add_question` function in [utils.py](uni_eval/utils.py) and select an evaluator of a similar task for evaluation.
 
 2. Transfer to other generation tasks
 
 We take the data-to-text task as an example to show how to transfer UniEval to an unseen task.
 
-(1) Create a task-specific evaluator in [metric/evaluator.py](./metric/evaluator.py), initializing it by specifying the pre-trained evaluator used and the dimensions to be evaluated. All required content should be inputted in the `self.evaluate()` function. Details can refer to `D2tEvaluator` in [metric/evaluator.py](./metric/evaluator.py).
+(1) Create a task-specific evaluator in [metric/evaluator.py](uni_eval/metric/evaluator.py), initializing it by specifying the pre-trained evaluator used and the dimensions to be evaluated. All required content should be inputted in the `self.evaluate()` function. Details can refer to `D2tEvaluator` in [metric/evaluator.py](uni_eval/metric/evaluator.py).
 
-(2) Specify the required content and a specific question description for each dimension in `add_question`. They form the input to the evaluator. The input format for evaluating *naturalness* and *informativeness* in the data-to-text task can be found in [utils.py](utils/utils.py).
+(2) Specify the required content and a specific question description for each dimension in `add_question`. They form the input to the evaluator. The input format for evaluating *naturalness* and *informativeness* in the data-to-text task can be found in [utils.py](uni_eval/utils.py).
 
 (3) As in [examples.py](./examples.py), multi-dimensional evaluation scores can be obtained.
 
